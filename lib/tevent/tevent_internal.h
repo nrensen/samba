@@ -27,6 +27,8 @@
    License along with this library; if not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <pthread.h>
+
 struct tevent_req {
 	/**
 	 * @brief What to do on completion
