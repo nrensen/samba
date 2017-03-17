@@ -3,7 +3,7 @@
 # with all the configure options that affect rpath and shared
 # library use
 
-import os
+import os, sys
 from waflib import Utils, Errors
 from waflib.TaskGen import feature, before, after
 from samba_utils import LIB_PATH, MODE_755, install_rpath, build_rpath
@@ -129,6 +129,14 @@ def install_library(self):
             install_name = bld.make_libname(target_name)
             install_link = None
             inst_name    = bld.make_libname(t.target)
+
+        if sys.platform.startswith("openbsd") and self.vnum:
+            libver = '%s.%s' % tuple((self.vnum + '.0').split('.')[0:2])
+            inst_name = bld.make_libname(t.target, version=libver)
+            install_name = bld.make_libname(target_name, version=libver)
+            install_path = bld.EXPAND_VARIABLES('${LIBDIR}')
+            install_link = None
+            dev_link = None
 
         if t.env.SONAME_ST:
             # ensure we get the right names in the library

@@ -165,6 +165,8 @@ class link_task(Task.Task):
 					name = name + '-' + nums[0]
 				elif self.env.DEST_OS == 'openbsd':
 					pattern = '%s.%s' % (pattern, nums[0])
+					if len(nums) == 1:
+						pattern += '.0'
 					if len(nums) >= 2:
 						pattern += '.%s' % nums[1]
 
