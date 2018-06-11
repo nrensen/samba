@@ -598,7 +598,7 @@ def SAMBA_SUBSYSTEM(bld, modname, source,
                     pyembed=False):
     '''define a Samba subsystem'''
 
-    if not enabled:
+    if not enabled or subsystem_name == 'smbtorture':
         SET_TARGET_TYPE(bld, modname, 'DISABLED')
         return
 
