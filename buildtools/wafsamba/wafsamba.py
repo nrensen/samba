@@ -364,6 +364,8 @@ def SAMBA_BINARY(bld, binname, source,
                  fuzzer=False,
                  for_selftest=False):
     '''define a Samba binary'''
+    if not install:
+        return
 
     if for_selftest:
         install=False
